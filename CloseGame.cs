@@ -32,6 +32,7 @@ namespace WarThunderDailyRewardConsoleApp
 
         public void RunCloseGameScript(IntPtr game) 
         {
+            Console.WriteLine("Running Close Game Script");
             SetForegroundWindow(game);
             SetActiveWindow(game);
             double height = SystemParameters.FullPrimaryScreenHeight;
@@ -41,55 +42,53 @@ namespace WarThunderDailyRewardConsoleApp
             Debug.WriteLine(height);
             Debug.WriteLine(width);
 
-            while (true)
-            {
-                SetActiveWindow(game);
-                Thread.Sleep(1000);
+            SetActiveWindow(game);
+            Thread.Sleep(1000);
 
-                // Close Update / Friend Referral Pop up
-                //Cursor.Position = new System.Drawing.Point(1504,79); // Close Update X
-                //Thread.Sleep(2000);
-                //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, new System.UIntPtr());
-                //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, new System.UIntPtr());
-                //Debug.WriteLine("ButtonPress");
+            // Close Update / Friend Referral Pop up
+            Cursor.Position = new System.Drawing.Point(1504, 79); // Close Update X
+            Thread.Sleep(2000);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, new System.UIntPtr());
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, new System.UIntPtr());
+            Debug.WriteLine("ButtonPress");
 
+            // Collect Reward
+            //Cursor.Position = new System.Drawing.Point(963, 484); // Collect Reward
+            //Thread.Sleep(2000);
+            //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, new System.UIntPtr());
+            //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, new System.UIntPtr());
 
+            Cursor.Position = new System.Drawing.Point(1349, 746); // Close Reward
+            Thread.Sleep(2000);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, new System.UIntPtr());
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, new System.UIntPtr());
 
-
-                //// Collect Reward
-                //Cursor.Position = new System.Drawing.Point(963, 484); // Collect Reward
-                //Thread.Sleep(2000);
-                //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, new System.UIntPtr());
-                //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, new System.UIntPtr());
-
-                //Cursor.Position = new System.Drawing.Point(1349, 746); // Close Reward
-                //Thread.Sleep(2000);
-                //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, new System.UIntPtr());
-                //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, new System.UIntPtr());
-
-
-                //// Open Close Game Menu
-                //Cursor.Position = new System.Drawing.Point(88, 30); // 3 Dash Menu
-                //Thread.Sleep(2000);
-                //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, new System.UIntPtr());
-                //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, new System.UIntPtr());
-
-                //Cursor.Position = new System.Drawing.Point(172, 117); // Move to Exit Game Button
-                //Thread.Sleep(3000);
-                //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, new System.UIntPtr());
-                //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, new System.UIntPtr());
+            Cursor.Position = new System.Drawing.Point(1349, 746); // Close Reward
+            Thread.Sleep(2000);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, new System.UIntPtr());
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, new System.UIntPtr());
 
 
-                //// Exit game Pop up
-                //Cursor.Position = new System.Drawing.Point(895, 570); // Move to Exit Game Button
-                //Thread.Sleep(2000);
-                //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, new System.UIntPtr());
-                //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, new System.UIntPtr());
+            // Open Close Game Menu
+            Cursor.Position = new System.Drawing.Point(88, 30); // 3 Dash Menu
+            Thread.Sleep(2000);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, new System.UIntPtr());
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, new System.UIntPtr());
+
+            Cursor.Position = new System.Drawing.Point(172, 117); // Move to Exit Game Button
+            Thread.Sleep(3000);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, new System.UIntPtr());
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, new System.UIntPtr());
 
 
-                Debug.WriteLine(Cursor.Position);
-               
-            }
+            // Exit game Pop up
+            Cursor.Position = new System.Drawing.Point(895, 570); // Move to Exit Game Button
+            Thread.Sleep(2000);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, new System.UIntPtr());
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, new System.UIntPtr());
+
+            Debug.WriteLine(Cursor.Position);
+            Console.WriteLine("Game Should Be Closed");
         }
         private const UInt32 MOUSEEVENTF_LEFTDOWN = 0x0002;
         private const UInt32 MOUSEEVENTF_LEFTUP = 0x0004;

@@ -10,6 +10,7 @@ namespace WarThunderDailyRewardConsoleApp
 {
     internal class Program
     {
+        //3600000 1hour
         static int IDLESLEEP = 3600000; // 1 hour
         static int SLEEPMS = 10000; // 10 seconds
         static int UTCHOUR = 0;
@@ -34,7 +35,7 @@ namespace WarThunderDailyRewardConsoleApp
                 System.DateTime date = System.DateTime.Now.ToUniversalTime();
                 int currentHour = date.Hour;
 
-                Debug.WriteLine(currentHour);
+                Console.WriteLine(currentHour);
 
                 if (counter >= 24)
                 {
@@ -44,10 +45,18 @@ namespace WarThunderDailyRewardConsoleApp
 
                 if (currentHour >= UTCHOUR && !hasCollectedReward)
                     p.StartProcess(p, proc, closeGame, ref hasCollectedReward);
-
+                
+                System.Threading.Thread.Sleep(SLEEPMS);
                 // Sleep FOR Hour
                 counter++;
+                // Check if the game is still open and close again if not
+                while (p.GetGame() != IntPtr.Zero) 
+                {
+                    Console.WriteLine("Game Still not closed");
+                    closeGame.RunCloseGameScript(p.GetGame());
+                }
 
+                Console.WriteLine("Going to Sleep for 1h");
                 System.Threading.Thread.Sleep(IDLESLEEP);
             }
 
@@ -62,16 +71,14 @@ namespace WarThunderDailyRewardConsoleApp
         }
         private void StartProcess(Program p, Process proc, CloseGame closeGame, ref bool hasCollectedReward) 
         {
-            Debug.WriteLine("Start Collecting Rewards");
+            Console.WriteLine("Start Collecting Rewards");
             // Start war thunder exec from steam
             proc.StartInfo.FileName = "D://Steam/steam.exe";
             proc.StartInfo.Arguments = "steam://rungameid/236390";
 
-
-            Debug.WriteLine("Start process exit");
             proc.Start();
 
-            // Wait for 30 seconds
+            // Wait for 30 seconds for game to open
             System.Threading.Thread.Sleep(SLEEPMS);
 
             // Get Game or 0
@@ -81,6 +88,7 @@ namespace WarThunderDailyRewardConsoleApp
             // Focus War thunder on computer
             if (game != IntPtr.Zero) 
             {
+                Console.WriteLine("Starting Close Game Script");
                 closeGame.RunCloseGameScript(game);
                 hasCollectedReward = true;
             }
